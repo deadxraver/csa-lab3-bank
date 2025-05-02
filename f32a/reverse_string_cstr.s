@@ -17,10 +17,6 @@ overflow:
   @p overflow_code !
   halt
 
-inc:
-  lit 1 +
-  ;
-
 _start:
   read_to_buffer
   reverse_buffer
