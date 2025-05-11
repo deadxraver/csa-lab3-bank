@@ -4,7 +4,7 @@ output_addr:  .word 0x84
 overflow_val: .word 0xCCCC_CCCC
   .text
 
-.org 0x85
+.org 0x88
 
 f_incorrect_input:
   addi   a0, zero, -1
@@ -24,7 +24,7 @@ f_stack_init:
 
 ret:
   lw    ra, 0(sp)
-  addi  sp, sp, -4
+  addi  sp, sp, 4
   jr    ra
 
 f_print_n:          ; a0 - word to print
