@@ -8,7 +8,9 @@ output_addr:  .word 0x84
 error_code:   .word 0xCCCC_CCCC
 
   .text
-.org 0x85
+
+.org 0x88
+
 ret:
   lw        a0, 0(sp)
   addi      sp, sp, 4
@@ -26,7 +28,7 @@ error:
   sw        t1, 0(t0)
   halt
 
-read_to_buffer:   ; t0 - input, a0 - return addr, t1 - current sym, t2 - i, t3 - cmp sym, t4 - adder
+f_read_to_buffer:   ; t0 - input, a0 - return addr, t1 - current sym, t2 - i, t3 - cmp sym, t4 - adder
   addi      sp, sp, -4
   sw        a0, 0(sp)   ; save return address to stack
 
@@ -66,7 +68,7 @@ end_read: ; load mem[buffer:buffer+4]; and 0xFFFF_FF00; plus with the length and
   j         ret
 
 
-print_buffer:   ; t0 - output, a0 - return addr, t1 - current sym, t2 - i, t3 - mask, t4 - length
+f_print_buffer:   ; t0 - output, a0 - return addr, t1 - current sym, t2 - i, t3 - mask, t4 - length
   addi      sp, sp, -4
   sw        a0, 0(sp)   ; save return address to stack
 
@@ -85,7 +87,6 @@ print_loop:
   and       t1, t1, t3
   sb        t1, 0(t0)
   addi      t2, t2, 1
-;  beq       t2, t4, end_print
   j         print_loop
 end_print:
   j         ret
@@ -96,11 +97,11 @@ _start:
   addi      t0, t0, %lo(input_addr)
   lw        t0, 0(t0)                 ; t0 = input_addr
 
-  jal       a0, read_to_buffer
+  jal       a0, f_read_to_buffer
 
   lui       t0, %hi(output_addr)
   addi      t0, t0, %lo(output_addr)
   lw        t0, 0(t0)                 ; t0 = output_addr
 
-  jal       a0, print_buffer
+  jal       a0, f_print_buffer
   halt
