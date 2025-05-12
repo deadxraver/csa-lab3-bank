@@ -4,8 +4,6 @@ output_addr:  .word 0x84
 overflow_val: .word 0xCCCC_CCCC
   .text
 
-.org 0x88
-
 f_incorrect_input:
   addi   a0, zero, -1
   jal    ra, f_print_n
@@ -33,6 +31,14 @@ f_print_n:          ; a0 - word to print
   lw    t0, 0(t0)
   sw    a0, 0(t0)
   jr    ra
+
+
+  .data
+.org 0x80
+input:    .word 0x0
+output:   .word 0x0
+
+  .text
 
 f_sum_n_and_print:  ; a0 - n
   addi  sp, sp, -4
