@@ -1,6 +1,7 @@
   .data
-buffer:               .byte 'Hello, _________________________', '___'
-null_term:            .byte 0, '___'
+buffer:               .byte 0, 'Hello, _________________________', '___'
+symbols_left:         .word 0x0
+exclamation:          .byte '!___'
 input_addr:           .word 0x80
 output_addr:          .word 0x84
 question_msg:         .byte 'What is your name?\n'
@@ -10,11 +11,11 @@ i:                    .word 0x0
 temp:                 .word 0x0
 one_const:            .word 0x1
 byte_mask:            .word 0x00FF
-buffer_ptr:           .word 0x7
+buffer_ptr:           .word 0x8
 newline:              .word 10
 
   .text
-.org 0x85
+.org 0x88
 
 _start:
 
@@ -46,24 +47,29 @@ read_name_to_buffer:
   store     buffer_ptr
   jmp       read_name_to_buffer
 end_input:
-  load_imm  '!'
+  load      exclamation
   store_ind buffer_ptr
-  load      buffer_ptr
-  add       one_const
-  store     buffer_ptr
-  load      null_term
-  store_ind buffer_ptr
-  load_imm  0x8
+  load      buffer
+  add       buffer_ptr
+  store     buffer
+  load_imm  0x7
   sub       buffer_ptr
   beqz      overflow_err      ; if empty line
 
 print_buffer:
+  load      buffer
+  and       byte_mask
+  store     symbols_left
   load_imm  buffer
+  add       one_const
   store     buffer_ptr
 print_loop:
+  load      symbols_left
+  beqz      end
+  sub       one_const
+  store     symbols_left
   load_ind  buffer_ptr
   and       byte_mask
-  beqz      end
   store_ind output_addr
   load      buffer_ptr
   add       one_const
