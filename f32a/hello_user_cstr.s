@@ -1,7 +1,7 @@
   .data
 ready_buffer:   .byte 'Hello, '
-buffer:         .byte '________________________'
-buffer_end:     .byte '____'
+buffer:         .byte '_______________________'
+buffer_end:     .byte '_____'
 endline:        .word '\n'
 question:       .byte 'What is your name?\n\0'
 byte_mask:      .word 0x0000_00FF
@@ -29,13 +29,23 @@ read_name_loop:
   -if overflow_error
   @b dup @p endline xor \; cmp c with endline
   if read_name_end
+  @ lit 0xffff_ff00 and +
   !+
   read_name_loop ;
 read_name_end:
   drop
   a lit buffer xor if overflow_error
-  lit '!' !+
-  lit 0x5f5f5f00 !
+  @ lit 0xffff_ff00 and !
+  lit buffer a!
+put_exclamation_loop:
+  @+ @p byte_mask and
+  dup if put_exclamation_end
+  put_exclamation_loop ;
+put_exclamation_end:
+  drop
+  a lit -1 + a!
+  lit '!' @ + !+
+  @ lit 0xffff_ff00 and !
   ;
 
 print_from_a:
