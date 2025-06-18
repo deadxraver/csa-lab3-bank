@@ -1,0 +1,15 @@
+limit: 1000
+memory_size: 0x1000
+input_streams:
+  0x80: ["HeLlo, 12345!aAa\n"]
+  0x84: []
+reports:
+  - name: Check results
+    slice: last
+    view: |
+      symio[0x80]: {io:0x80:sym}
+      symio[0x84]: {io:0x84:sym}
+    assert: |
+      symio[0x80]: "" >>> ""
+      symio[0x84]: "" >>> "HELLO, 12345!AAA"
+
