@@ -1,6 +1,6 @@
 limit: 1500
 memory_size: 0x1000
-input_streams:
+memory_mapped_io:
   0x80: [4, 2147483647, 1, 2147483647, 2]
   0x84: []
 reports:
