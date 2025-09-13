@@ -6,7 +6,7 @@ output_addr: .word 0x84
 .text
 
 
-.org 0x90
+.org 0x88
 
 _start:
     jal     a0, initialize_registers

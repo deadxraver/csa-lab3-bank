@@ -9,7 +9,7 @@ upper_word:     .word 0x00
 
   .text
 
-.org 0x85
+.org 0x88
 
 print_words:
   @p lower_word

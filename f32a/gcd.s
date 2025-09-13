@@ -3,7 +3,7 @@ input_addr:     .word 0x80
 output_addr:    .word 0x84
 
   .text
-.org 0x85
+.org 0x88
 
 check_limits:
   dup if error

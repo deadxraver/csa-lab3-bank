@@ -9,7 +9,7 @@ one:             .word  0x01               ; const for bitwise AND & shift & dec
 
 
     .text
-.org 0x85
+.org 0x88
 
 _start:
     load_ind     input_addr                  ; acc = *input_addr

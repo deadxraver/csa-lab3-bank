@@ -12,7 +12,7 @@ byte_mask:       .word  255
 
 \; lit <value> inv lit 1 + +   ==    -value
     .text
-.org 0x85
+.org 0x88
 to_uppercase:
     dup                             \; duplicate for comparing
     lit 'a' inv lit 1 + +

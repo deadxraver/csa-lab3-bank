@@ -8,7 +8,7 @@ output_addr:  .word 0x84
 error_code:   .word 0xCCCC_CCCC
 
   .text
-.org 0x85
+.org 0x88
 ret:
   lw        a0, 0(sp)
   addi      sp, sp, 4

@@ -6,7 +6,7 @@ err_n:            .word   -1
 err_res:          .word   0xCCCC_CCCC
 
     .text
-.org 0x85
+.org 0x88
 error_res:
     @p err_res
     @p output_addr a! !

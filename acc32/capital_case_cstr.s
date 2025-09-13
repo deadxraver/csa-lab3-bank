@@ -20,7 +20,7 @@ error_code:      .word  0xCCCC_CCCC
   .text
 
 
-.org 0x85
+.org 0x88
 _start:
 read_string:
   load_imm      buffer          ; acc = buffer
