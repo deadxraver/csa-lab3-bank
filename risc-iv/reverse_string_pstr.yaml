@@ -4,10 +4,6 @@ memory_mapped_io:
   0x80: ["Hello world\n"]
   0x84: []
 reports:
-  - name: Step-by-step
-    slice: all
-    view: |
-      {pc}:	{instruction}	{pc:label}
   - name: Result
     slice: last
     view: |
